@@ -38,9 +38,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
   http: ^0.13.4
   flutter_svg: ^1.0.3
+  share_plus: ^4.0.3
   marquee: ^2.2.1
-  auto_size_text: ^3.0.0
-  fancy_text_reveal: ^1.0.1
 
 dev_dependencies:
   flutter_test:

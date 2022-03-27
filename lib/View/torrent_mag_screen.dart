@@ -4,10 +4,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
-import 'package:fancy_text_reveal/fancy_text_reveal.dart';
+import 'package:share_plus/share_plus.dart';
 import '../Controller/torrentmag_controller.dart';
+import 'package:marquee/marquee.dart';
 
 class TorrentMagView extends StatefulWidget {
   const TorrentMagView({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _TorrentMagViewState extends State<TorrentMagView> {
     super.initState();
     textEditingController = TextEditingController();
     textEditingController.addListener(() {
-      Provider.of<TorrentMagController>(context, listen: false)
+      Provider.of<TorrentMagController>(context, listen: true)
           .getTorrentMag(textEditingController.text);
     });
   }
@@ -46,13 +46,11 @@ class _TorrentMagViewState extends State<TorrentMagView> {
             Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.020),
-              child: FancyTextReveal(
-                child: Text(
-                  "TORRENT MAG",
-                  style: TextStyle(
-                      fontSize: MediaQuery.textScaleFactorOf(context) * 20,
-                      fontStyle: FontStyle.italic),
-                ),
+              child: Text(
+                "TORRENT MAG",
+                style: TextStyle(
+                    fontSize: MediaQuery.textScaleFactorOf(context) * 20,
+                    fontStyle: FontStyle.italic),
               ),
             ),
             SizedBox(
@@ -93,282 +91,323 @@ class _TorrentMagViewState extends State<TorrentMagView> {
               builder: (context, value, child) => Expanded(
                 child: value.torrentMagList.isEmpty
                     ? Center(
-                        child:
-                            Text("Enter Movie, Series , Games in Search Field"),
+                        child: CircularProgressIndicator(),
                       )
-                    : ListView.builder(
-                        itemCount: torrentSeacher.torrentMagList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.all(12),
-                            child: Container(
-                              width: double.infinity,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.230,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFFFFFF),
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    spreadRadius: 3,
-                                    blurRadius: 2.5,
-                                    color: Color(0xFFF4F4F4),
-                                    offset: Offset(1, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          "assets/noImageIcon.png",
-                                          height: 60,
-                                          width: 60,
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: ListView.builder(
+                          itemCount: torrentSeacher.torrentMagList.length,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.all(12),
+                              child: Container(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.230,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFFFFFF),
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      spreadRadius: 3,
+                                      blurRadius: 2.5,
+                                      color: Color(0xFFF4F4F4),
+                                      offset: Offset(1, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                            "assets/noImageIcon.png",
+                                            height: 60,
+                                            width: 60,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.004,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            value.torrentMagList[index].name
-                                                .toString(),
-                                            style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.textScaleFactorOf(
-                                                          context) *
-                                                      7,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.020,
-                                          ),
-                                          IntrinsicHeight(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                    "Leechers: ${value.torrentMagList[index].leechers}",
-                                                    style: TextStyle(
-                                                        fontSize: MediaQuery
-                                                                .textScaleFactorOf(
-                                                                    context) *
-                                                            13,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                                VerticalDivider(
-                                                  thickness: 1,
-                                                  color: Colors.black,
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.004,
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: 270,
+                                                child: Text(
+                                                  value.torrentMagList[index]
+                                                      .name
+                                                      .toString(),
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        14,
+                                                  ),
                                                 ),
-                                                Text(
-                                                    "Seeders: ${value.torrentMagList[index].seeders}",
-                                                    style: TextStyle(
-                                                        fontSize: MediaQuery
-                                                                .textScaleFactorOf(
-                                                                    context) *
-                                                            13,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                              ],
+                                              ),
+                                              SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.020,
+                                              ),
+                                              IntrinsicHeight(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Leechers: ${value.torrentMagList[index].leechers}",
+                                                      style: TextStyle(
+                                                          fontSize: MediaQuery
+                                                                  .textScaleFactorOf(
+                                                                      context) *
+                                                              13,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                    VerticalDivider(
+                                                      color: Colors.black,
+                                                    ),
+                                                    Text(
+                                                      "Seeders: ${value.torrentMagList[index].seeders}",
+                                                      style: TextStyle(
+                                                          fontSize: MediaQuery
+                                                                  .textScaleFactorOf(
+                                                                      context) *
+                                                              13,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 60,
+                                                    ),
+                                                    GestureDetector(
+                                                      child: SvgPicture.asset(
+                                                        "assets/share.svg",
+                                                        color:
+                                                            Colors.blueAccent,
+                                                      ),
+                                                      onTap: () {
+                                                        Share.share(
+                                                            "Name: ${value.torrentMagList[index].name}\n Magnet Link: `${value.torrentMagList[index].magnet}`");
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Divider(
+                                      indent: 20,
+                                      endIndent: 20,
+                                      color: Colors.black,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                                "${value.torrentMagList[index].type}",
+                                                style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        12,
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.006,
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Divider(
-                                    indent: 20,
-                                    endIndent: 20,
-                                    color: Colors.black,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text(
-                                              "${value.torrentMagList[index].type}",
-                                              style: TextStyle(
-                                                  fontSize: MediaQuery
-                                                          .textScaleFactorOf(
-                                                              context) *
-                                                      12,
-                                                  fontWeight:
-                                                      FontWeight.normal)),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.006,
-                                          ),
-                                          Text(
-                                            "Quality",
-                                            style: TextStyle(
-                                                fontSize: MediaQuery
-                                                        .textScaleFactorOf(
-                                                            context) *
-                                                    14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                              "${value.torrentMagList[index].size}",
-                                              style: TextStyle(
-                                                  fontSize: MediaQuery
-                                                          .textScaleFactorOf(
-                                                              context) *
-                                                      12,
-                                                  fontWeight:
-                                                      FontWeight.normal)),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.006,
-                                          ),
-                                          Text("Size",
+                                            Text(
+                                              "Quality",
                                               style: TextStyle(
                                                   fontSize: MediaQuery
                                                           .textScaleFactorOf(
                                                               context) *
                                                       14,
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                              "${value.torrentMagList[index].language}",
-                                              style: TextStyle(
-                                                  fontSize: MediaQuery
-                                                          .textScaleFactorOf(
-                                                              context) *
-                                                      12,
-                                                  fontWeight:
-                                                      FontWeight.normal)),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.006,
-                                          ),
-                                          Text("Language",
-                                              style: TextStyle(
-                                                  fontSize: MediaQuery
-                                                          .textScaleFactorOf(
-                                                              context) *
-                                                      14,
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.006,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Color(0xFF4D96FF), // background
-                                          onPrimary: Colors.white, // foreground
-                                          fixedSize: Size(
-                                            MediaQuery.of(context).size.width *
-                                                0.500,
-                                            MediaQuery.of(context).size.height *
-                                                0.048,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                        child: Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                                "assets/download.svg"),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.006,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                            Text("Download Torrent")
                                           ],
                                         ),
-                                      ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Color(0xFF6BCB77), // background
-                                          onPrimary: Colors.white, // foreground
-                                          fixedSize: Size(
-                                            MediaQuery.of(context).size.width *
-                                                0.400,
-                                            MediaQuery.of(context).size.height *
-                                                0.048,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () => {
-                                          Clipboard.setData(ClipboardData(
-                                                  text: value
-                                                      .torrentMagList[index]
-                                                      .magnet))
-                                              .then((value) {
-                                            final snackBar = SnackBar(
-                                              content: Text(
-                                                  'Magnet Link Copied to Clipboard'),
-                                            ); //only if ->
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackBar);
-                                          })
-                                        },
-                                        child: Row(
+                                        Column(
                                           children: [
-                                            SvgPicture.asset(
-                                                "assets/magnet.svg"),
+                                            Text(
+                                                "${value.torrentMagList[index].size}",
+                                                style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        12,
+                                                    fontWeight:
+                                                        FontWeight.normal)),
                                             SizedBox(
-                                              width: MediaQuery.of(context)
+                                              height: MediaQuery.of(context)
                                                       .size
-                                                      .width *
+                                                      .height *
                                                   0.006,
                                             ),
-                                            Text("Magnet")
+                                            Text("Size",
+                                                style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           ],
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                        Column(
+                                          children: [
+                                            Text(
+                                                "${value.torrentMagList[index].language}",
+                                                style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        12,
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.006,
+                                            ),
+                                            Text("Language",
+                                                style: TextStyle(
+                                                    fontSize: MediaQuery
+                                                            .textScaleFactorOf(
+                                                                context) *
+                                                        14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.006,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary:
+                                                Color(0xFF4D96FF), // background
+                                            onPrimary:
+                                                Colors.white, // foreground
+                                            fixedSize: Size(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.500,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.048,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  "assets/download.svg"),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.006,
+                                              ),
+                                              Text("Download Torrent")
+                                            ],
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary:
+                                                Color(0xFF6BCB77), // background
+                                            onPrimary:
+                                                Colors.white, // foreground
+                                            fixedSize: Size(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.400,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.048,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () => {
+                                            Clipboard.setData(ClipboardData(
+                                                    text: value
+                                                        .torrentMagList[index]
+                                                        .magnet))
+                                                .then((value) {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                    'Magnet Link Copied to Clipboard'),
+                                              ); //only if ->
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            })
+                                          },
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  "assets/magnet.svg"),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.006,
+                                              ),
+                                              Text("Magnet")
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
               ),
             ),

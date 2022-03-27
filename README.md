@@ -5,6 +5,7 @@
 
   * Copy Magnet Link by Clicking Magnet Button
   * Search Names to Fetch List
+  * Added Share Options
 
   Future Updates
   * Downloading Torrent File by Clicking Download Torrent 
