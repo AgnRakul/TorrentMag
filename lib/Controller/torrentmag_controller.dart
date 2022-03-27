@@ -4,13 +4,14 @@ import 'package:torrentmag/Service/apiservice.dart';
 
 class TorrentMagController extends ChangeNotifier {
   TorrentMag torrentMag = TorrentMag();
-
+  final isBool = true;
   List<TorrentMag> torrentMagList = [];
 
   void getTorrentMag(String name) {
     ApiService.instance.torrentMag(name).then((value) {
       if (value.isNotEmpty) {
         torrentMagList = [...value];
+
         notifyListeners();
       } else {
         torrentMagList = [];
