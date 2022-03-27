@@ -8,3 +8,5 @@
 
   Future Updates
   * Downloading Torrent File by Clicking Download Torrent 
+
+# Suggestion are always Welcome

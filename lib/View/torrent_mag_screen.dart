@@ -44,19 +44,23 @@ class _TorrentMagViewState extends State<TorrentMagView> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.020),
               child: FancyTextReveal(
                 child: Text(
                   "TORRENT MAG",
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                      fontSize: MediaQuery.textScaleFactorOf(context) * 20,
+                      fontStyle: FontStyle.italic),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: MediaQuery.of(context).size.height * 0.020,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).padding.bottom * 0.020),
               child: TextField(
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -74,8 +78,9 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                     ),
                     hintText: "Search Movie ,Series, etc..",
                     hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 195, 196, 197),
-                        fontSize: 13),
+                      color: Color.fromARGB(255, 195, 196, 197),
+                      fontSize: MediaQuery.textScaleFactorOf(context) * 13,
+                    ),
                     filled: true,
                     fillColor: Color.fromARGB(255, 235, 235, 235),
                   ),
@@ -95,7 +100,7 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                         itemCount: torrentSeacher.torrentMagList.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: EdgeInsets.all(12),
                             child: Container(
                               width: double.infinity,
                               height:
@@ -125,7 +130,9 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 4,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.004,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -135,13 +142,17 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                             value.torrentMagList[index].name
                                                 .toString(),
                                             style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.018),
+                                              fontSize:
+                                                  MediaQuery.textScaleFactorOf(
+                                                          context) *
+                                                      7,
+                                            ),
                                           ),
                                           SizedBox(
-                                            height: 10,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.020,
                                           ),
                                           IntrinsicHeight(
                                             child: Row(
@@ -151,7 +162,10 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                                 Text(
                                                     "Leechers: ${value.torrentMagList[index].leechers}",
                                                     style: TextStyle(
-                                                        fontSize: 13,
+                                                        fontSize: MediaQuery
+                                                                .textScaleFactorOf(
+                                                                    context) *
+                                                            13,
                                                         fontWeight:
                                                             FontWeight.normal)),
                                                 VerticalDivider(
@@ -161,7 +175,10 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                                 Text(
                                                     "Seeders: ${value.torrentMagList[index].seeders}",
                                                     style: TextStyle(
-                                                        fontSize: 13,
+                                                        fontSize: MediaQuery
+                                                                .textScaleFactorOf(
+                                                                    context) *
+                                                            13,
                                                         fontWeight:
                                                             FontWeight.normal)),
                                               ],
@@ -185,16 +202,25 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                           Text(
                                               "${value.torrentMagList[index].type}",
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      12,
                                                   fontWeight:
                                                       FontWeight.normal)),
                                           SizedBox(
-                                            height: 6,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.006,
                                           ),
                                           Text(
                                             "Quality",
                                             style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: MediaQuery
+                                                        .textScaleFactorOf(
+                                                            context) *
+                                                    14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ],
@@ -204,15 +230,24 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                           Text(
                                               "${value.torrentMagList[index].size}",
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      12,
                                                   fontWeight:
                                                       FontWeight.normal)),
                                           SizedBox(
-                                            height: 6,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.006,
                                           ),
                                           Text("Size",
                                               style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      14,
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
@@ -221,33 +256,48 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                           Text(
                                               "${value.torrentMagList[index].language}",
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      12,
                                                   fontWeight:
                                                       FontWeight.normal)),
                                           SizedBox(
-                                            height: 6,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.006,
                                           ),
                                           Text("Language",
                                               style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      14,
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 6,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.006,
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           primary:
                                               Color(0xFF4D96FF), // background
                                           onPrimary: Colors.white, // foreground
-                                          fixedSize: Size(170, 38),
+                                          fixedSize: Size(
+                                            MediaQuery.of(context).size.width *
+                                                0.500,
+                                            MediaQuery.of(context).size.height *
+                                                0.048,
+                                          ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -259,7 +309,10 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                             SvgPicture.asset(
                                                 "assets/download.svg"),
                                             SizedBox(
-                                              width: 6,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.006,
                                             ),
                                             Text("Download Torrent")
                                           ],
@@ -270,7 +323,12 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                           primary:
                                               Color(0xFF6BCB77), // background
                                           onPrimary: Colors.white, // foreground
-                                          fixedSize: Size(104, 38),
+                                          fixedSize: Size(
+                                            MediaQuery.of(context).size.width *
+                                                0.400,
+                                            MediaQuery.of(context).size.height *
+                                                0.048,
+                                          ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -283,8 +341,8 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                                       .magnet))
                                               .then((value) {
                                             final snackBar = SnackBar(
-                                              content:
-                                                  Text('Copied to Clipboard'),
+                                              content: Text(
+                                                  'Magnet Link Copied to Clipboard'),
                                             ); //only if ->
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(snackBar);
@@ -295,7 +353,10 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                             SvgPicture.asset(
                                                 "assets/magnet.svg"),
                                             SizedBox(
-                                              width: 6,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.006,
                                             ),
                                             Text("Magnet")
                                           ],
