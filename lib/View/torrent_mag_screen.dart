@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 // import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -104,10 +105,10 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                               child: Container(
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.230,
+                                    MediaQuery.of(context).size.height * 0.240,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
                                       spreadRadius: 3,
@@ -118,98 +119,74 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                   ],
                                 ),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            "assets/noImageIcon.png",
-                                            height: 60,
-                                            width: 60,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.004,
-                                        ),
-                                        Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 270,
-                                                child: Text(
-                                                  value.torrentMagList[index]
-                                                      .name
-                                                      .toString(),
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                    fontSize: MediaQuery
-                                                            .textScaleFactorOf(
-                                                                context) *
-                                                        14,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 300,
+                                              child: AutoSizeText(
+                                                value.torrentMagList[index].name
+                                                    .toString(),
+                                                maxLines: 2,
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontSize: MediaQuery
+                                                          .textScaleFactorOf(
+                                                              context) *
+                                                      14,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.020,
+                                            ),
+                                            IntrinsicHeight(
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Leechers: ${value.torrentMagList[index].leechers}",
+                                                    style: TextStyle(
+                                                        fontSize: MediaQuery
+                                                                .textScaleFactorOf(
+                                                                    context) *
+                                                            13,
+                                                        fontWeight:
+                                                            FontWeight.normal),
                                                   ),
-                                                ),
+                                                  VerticalDivider(
+                                                    color: Colors.black,
+                                                  ),
+                                                  Text(
+                                                    "Seeders: ${value.torrentMagList[index].seeders}",
+                                                    style: TextStyle(
+                                                        fontSize: MediaQuery
+                                                                .textScaleFactorOf(
+                                                                    context) *
+                                                            13,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 60,
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.020,
-                                              ),
-                                              IntrinsicHeight(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Leechers: ${value.torrentMagList[index].leechers}",
-                                                      style: TextStyle(
-                                                          fontSize: MediaQuery
-                                                                  .textScaleFactorOf(
-                                                                      context) *
-                                                              13,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    ),
-                                                    VerticalDivider(
-                                                      color: Colors.black,
-                                                    ),
-                                                    Text(
-                                                      "Seeders: ${value.torrentMagList[index].seeders}",
-                                                      style: TextStyle(
-                                                          fontSize: MediaQuery
-                                                                  .textScaleFactorOf(
-                                                                      context) *
-                                                              13,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 60,
-                                                    ),
-                                                    GestureDetector(
-                                                      child: SvgPicture.asset(
-                                                        "assets/share.svg",
-                                                        color:
-                                                            Colors.blueAccent,
-                                                      ),
-                                                      onTap: () {
-                                                        Share.share(
-                                                            "Name: ${value.torrentMagList[index].name}\n Magnet Link: `${value.torrentMagList[index].magnet}`");
-                                                      },
-                                                    )
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                            )
+                                          ],
                                         )
                                       ],
                                     ),
@@ -321,16 +298,16 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                                 Color(0xFF4D96FF), // background
                                             onPrimary:
                                                 Colors.white, // foreground
-                                            fixedSize: Size(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.500,
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.048,
-                                            ),
+                                            // fixedSize: Size(
+                                            //   MediaQuery.of(context)
+                                            //           .size
+                                            //           .width *
+                                            //       0.500,
+                                            //   MediaQuery.of(context)
+                                            //           .size
+                                            //           .height *
+                                            //       0.048,
+                                            // ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -357,16 +334,7 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                                 Color(0xFF6BCB77), // background
                                             onPrimary:
                                                 Colors.white, // foreground
-                                            fixedSize: Size(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.400,
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.048,
-                                            ),
+
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -400,6 +368,14 @@ class _TorrentMagViewState extends State<TorrentMagView> {
                                             ],
                                           ),
                                         ),
+                                        IconButton(
+                                          tooltip: 'Share',
+                                          onPressed: () {
+                                            Share.share(
+                                                "Name: ${value.torrentMagList[index].name}\n Magnet Link: `${value.torrentMagList[index].magnet}`");
+                                          },
+                                          icon: Icon(Icons.share),
+                                        )
                                       ],
                                     )
                                   ],
